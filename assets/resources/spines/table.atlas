@@ -1,0 +1,90 @@
+
+table.png
+size: 593,513
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2
+  rotate: false
+  xy: 327, 8
+  size: 90, 141
+  orig: 98, 141
+  offset: 4, 0
+  index: -1
+bai_trang
+  rotate: false
+  xy: 210, 17
+  size: 115, 132
+  orig: 119, 132
+  offset: 2, 0
+  index: -1
+flare 3 tim
+  rotate: true
+  xy: 419, 5
+  size: 44, 48
+  orig: 48, 48
+  offset: 2, 0
+  index: -1
+hat
+  rotate: false
+  xy: 559, 136
+  size: 20, 21
+  orig: 27, 21
+  offset: 5, 0
+  index: -1
+khung1
+  rotate: false
+  xy: 2, 322
+  size: 361, 189
+  orig: 365, 189
+  offset: 2, 0
+  index: -1
+khungadd
+  rotate: false
+  xy: 2, 151
+  size: 357, 169
+  orig: 361, 169
+  offset: 2, 0
+  index: -1
+khuon
+  rotate: false
+  xy: 365, 336
+  size: 226, 175
+  orig: 230, 175
+  offset: 2, 0
+  index: -1
+khuon2
+  rotate: false
+  xy: 365, 159
+  size: 226, 175
+  orig: 230, 175
+  offset: 2, 0
+  index: -1
+lightchum23
+  rotate: true
+  xy: 2, 2
+  size: 147, 206
+  orig: 155, 206
+  offset: 4, 0
+  index: -1
+tep
+  rotate: true
+  xy: 469, 9
+  size: 40, 46
+  orig: 44, 46
+  offset: 2, 0
+  index: -1
+thai
+  rotate: false
+  xy: 419, 105
+  size: 138, 52
+  orig: 138, 52
+  offset: 0, 0
+  index: -1
+thai add
+  rotate: false
+  xy: 419, 51
+  size: 138, 52
+  orig: 138, 52
+  offset: 0, 0
+  index: -1

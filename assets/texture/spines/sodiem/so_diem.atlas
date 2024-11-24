@@ -1,0 +1,27 @@
+
+so_diem.png
+size: 114,115
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+t1
+  rotate: false
+  xy: 2, 15
+  size: 39, 98
+  orig: 47, 98
+  offset: 4, 0
+  index: -1
+t2
+  rotate: true
+  xy: 43, 56
+  size: 57, 67
+  orig: 65, 67
+  offset: 4, 0
+  index: -1
+t3
+  rotate: true
+  xy: 43, 2
+  size: 52, 69
+  orig: 60, 69
+  offset: 4, 0
+  index: -1

@@ -1,0 +1,7 @@
+export enum GameInfo {
+    TOTAL_CARDS_FOR_EACH_PLAYER = 13,
+    USER_GAME = 4,
+    TIME_COUNTDOWN_EACH_TURN = 15,
+    EACH_CARD_DIVIDING_TIME = 0.2,
+    CARD_DUMP_TIME = 0.25
+}

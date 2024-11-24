@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Kaeng</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
+  
+  <!-- force screen orientation on some browser -->
+  <meta name="screen-orientation" content="landscape"/>
+  <meta name="x5-orientation" content="landscape">
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <link rel="preload" href="cocos2d-js-min.js" async as="script">
+  <link rel="preload" href="src/assets/script/lib/sfs2x-api-1.7.18.js" async as="script">
+  <link rel="preload" href="assets/main/index.js" async as="script">
+  <link rel="preload" href="assets/internal/index.js" async as="script">
+  <link rel="preload" href="assets/resources/index.js" async as="script">
+  <style>html{-ms-touch-action:none}body,canvas,div{display:block;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}body{position:absolute;top:0;left:0;width:100%;height:100%;padding:0;border:0;margin:0;cursor:default;color:#000;background-color:#000;text-align:center;font-family:Helvetica,Verdana,Arial,sans-serif;display:flex;flex-direction:column;overflow:hidden}#Cocos2dGameContainer{position:absolute;margin:0;left:0;top:0;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:center;-webkit-box-pack:center}canvas{background-color:rgba(0,0,0,1)}a:link,a:visited{color:#666}a:active,a:hover{color:#666}p.header{font-size:small}p.footer{font-size:x-small}.progress-bar{position:absolute;left:27.5%;top:80%;height:3px;padding:2px;width:45%;border-radius:7px;box-shadow:0 1px 5px #000 inset,0 1px 0 #444}.progress-bar span{display:block;height:100%;border-radius:3px;transition:width .4s ease-in-out;background-color:#3dc5de}.stripes span{background-size:30px 30px;background-image:linear-gradient(135deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);animation:animate-stripes 1s linear infinite}@keyframes animate-stripes{0%{background-position:0 0}100%{background-position:60px 0}}</style>
+</head>
+<body>
+  <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>  
+  <script>function initializeGameAsync(){FBInstant.initializeAsync().then(function(){CyberGlobals.initializeAsyncResolved=!0,FBInstant.setLoadingProgress(CyberGlobals.progress),getDataAsync(),getSignedPlayerInfoAsync()}).catch(function(e){console.log("initializeGameAsync exception",e),setTimeout(function(){initializeGameAsync()},100)})}function updateLoadingProgress(e){CyberGlobals.progress+=e,CyberGlobals.initializeAsyncResolved&&FBInstant.setLoadingProgress(CyberGlobals.progress)}function getSignedPlayerInfoAsync(){FBInstant.player.getSignedPlayerInfoAsync().then(function(e){CyberGlobals.signedPlayer.playerId=e.getPlayerID(),CyberGlobals.signedPlayer.signature=e.getSignature(),updateLoadingProgress(15)}).catch(function(e){console.log("getSignedPlayerInfoAsync exception",e),setTimeout(function(){getSignedPlayerInfoAsync()},500)})}function getDataAsync(){FBInstant.player.getDataAsync(["gameLocale","guserid","tutorialPlayedV1","m","s","noel_1_99"]).then(function(e){if(e.tutorialPlayedV1&&(CyberGlobals.tutorialPlayed=e.tutorialPlayedV1),e.noel_1_99&&(CyberGlobals.noel_1_99=parseInt(e.noel_1_99)),e.gameLocale)CyberGlobals.gameLocale=e.gameLocale;else{let e=FBInstant.getLocale();-1!=e.indexOf("th")?(CyberGlobals.gameLocale="th_TH",CyberGlobals.tutorialPlayed=!0):CyberGlobals.gameLocale="en_US"}!1===e.m&&(CyberGlobals.gameConfig.musicEnabled=!1),!1===e.s&&(CyberGlobals.gameConfig.soundEnabled=!1),e.guserid?CyberGlobals.signedPlayer.guserid=parseInt(e.guserid):CyberGlobals.signedPlayer.guserid=0,CyberGlobals.getDataAsyncResolved=!0,updateLoadingProgress(15)}).catch(function(e){CyberGlobals.signedPlayer.guserid=0,CyberGlobals.tutorialPlayed=!0,CyberGlobals.gameLocale="th_TH";var s=new Date;CyberGlobals.noel_1_99=s.getFullYear(),CyberGlobals.getDataAsyncResolved=!0,console.log("getDataAsync",e)})}function startGameAsync(){CyberGlobals.initializeAsyncResolved?FBInstant.startGameAsync().then(()=>{CyberGlobals.startGameAsyncResolved=!0}).catch(e=>{setTimeout(()=>{startGameAsync()},500),console.log("startGameAsync",e)}):setTimeout(()=>{startGameAsync()},30)}function boot(){var e=cc.AssetManager.BuiltinBundleName.RESOURCES,s=cc.AssetManager.BuiltinBundleName.INTERNAL,a=cc.AssetManager.BuiltinBundleName.MAIN,n=window._CCSettings;window._CCSettings=void 0,cc.sys.isBrowser&&document.getElementById("GameCanvas");function t(){cc.view.resizeWithBrowserSize(!0),cc.view.enableRetina(!0),cc.sys.isMobile&&("landscape"===n.orientation?cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE):"portrait"===n.orientation&&cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT),cc.view.enableAutoFullScreen(cc.sys.browserType!==cc.sys.BROWSER_TYPE_BAIDU&&cc.sys.browserType!==cc.sys.BROWSER_TYPE_WECHAT&&cc.sys.browserType!==cc.sys.BROWSER_TYPE_MOBILE_QQ)),cc.sys.isBrowser&&cc.sys.os===cc.sys.OS_ANDROID&&(cc.assetManager.downloader.maxConcurrency=2);var s=n.launchScene;cc.assetManager.bundles.find(function(e){return e.getSceneInfo(s)}).loadScene(s,cc.sys.isBrowser?function(e,s){s=Math.floor(100*e/s);CyberGlobals.progress<s?CyberGlobals.initializeAsyncResolved&&FBInstant.setLoadingProgress(s):updateLoadingProgress(3)}:null,function(e,s){startGameAsync(),cc.director.runSceneImmediate(s)}),CyberGame.initAsync().then(function(){console.log("CyberGame initAsync success")})}var o={id:"GameCanvas",debugMode:n.debug?cc.debug.DebugMode.INFO:cc.debug.DebugMode.ERROR,showFPS:n.debug,frameRate:60,groupList:n.groupList,collisionMatrix:n.collisionMatrix};cc.assetManager.init({bundleVers:n.bundleVers});var l=[s];n.hasResourcesBundle&&l.push(e);var i=0;function r(e){if(e)return console.error(e.message,e.stack);++i===l.length+1&&cc.assetManager.loadBundle(a,function(e){e||cc.game.run(o,t)}),updateLoadingProgress(2)}cc.assetManager.loadScript(n.jsList.map(function(e){return"src/"+e}),r);for(var c=0;c<l.length;c++)cc.assetManager.loadBundle(l[c],r);updateLoadingProgress(10)}window._CCSettings={platform:"fb-instant-games",groupList:["default"],collisionMatrix:[[!0]],hasResourcesBundle:!0,hasStartSceneBundle:!1,remoteBundles:[],subpackages:[],launchScene:"db://assets/scene/splash.fire",orientation:"landscape",jsList:["assets/script/lib/sfs2x-api-1.7.18.js"]},window.CyberGlobals={startGameAsyncResolved:!1,initializeAsyncResolved:!1,getDataAsyncResolved:!1,progress:10,tutorialPlayed:!1,gameLocale:"th_TH",noel_1_99:0,gameConfig:{globalChatUrl:"wss://cybergame.live:8888/zone/Kaeng/",appId:577504820415303,isPreviewMode:!1,debugLoadingProgress:!1,musicEnabled:!0,soundEnabled:!0},sfsConfig:{host:"sg.cybergame.live",port:8443,useSSL:!0,zone:"Phikhaeng",debug:!1},signedPlayer:{guserid:-1,playerId:void 0,signature:void 0},isSignedPlayerResolved:function(){return null!=this.signedPlayer.signature&&null!=this.signedPlayer.playerId&&-1!=this.signedPlayer.guserid},getLocale:function(){return this.gameLocale}};</script>
+  <script src="https://connect.facebook.net/en_US/fbinstant.7.1.js" async onload="initializeGameAsync()"></script>
+  <script src="cocos2d-js-min.js" async onload="boot()" ></script>
+</body>
+</html>

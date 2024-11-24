@@ -1,0 +1,181 @@
+
+play_friend.png
+size: 642,522
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0_add_vien
+  rotate: true
+  xy: 380, 163
+  size: 357, 161
+  orig: 365, 161
+  offset: 4, 0
+  index: -1
+0tep
+  rotate: true
+  xy: 321, 5
+  size: 44, 52
+  orig: 52, 52
+  offset: 4, 0
+  index: -1
+0tim
+  rotate: false
+  xy: 510, 5
+  size: 42, 47
+  orig: 50, 47
+  offset: 4, 0
+  index: -1
+11_bong
+  rotate: true
+  xy: 554, 29
+  size: 29, 63
+  orig: 37, 63
+  offset: 4, 0
+  index: -1
+11_tim
+  rotate: true
+  xy: 375, 17
+  size: 32, 65
+  orig: 40, 65
+  offset: 4, 0
+  index: -1
+12_bong_duoi
+  rotate: true
+  xy: 425, 54
+  size: 107, 98
+  orig: 115, 98
+  offset: 4, 0
+  index: -1
+12_bong_tren
+  rotate: true
+  xy: 442, 2
+  size: 50, 66
+  orig: 58, 66
+  offset: 4, 0
+  index: -1
+12_xanh
+  rotate: true
+  xy: 525, 60
+  size: 101, 92
+  orig: 109, 92
+  offset: 4, 0
+  index: -1
+13_bong
+  rotate: false
+  xy: 605, 476
+  size: 34, 44
+  orig: 42, 44
+  offset: 4, 0
+  index: -1
+13_tim
+  rotate: false
+  xy: 605, 433
+  size: 30, 41
+  orig: 38, 41
+  offset: 4, 0
+  index: -1
+14_bong
+  rotate: true
+  xy: 605, 400
+  size: 31, 32
+  orig: 39, 32
+  offset: 4, 0
+  index: -1
+14_nhat
+  rotate: true
+  xy: 262, 2
+  size: 25, 26
+  orig: 33, 26
+  offset: 4, 0
+  index: -1
+1bong_duoi
+  rotate: true
+  xy: 543, 278
+  size: 88, 97
+  orig: 101, 97
+  offset: 5, 0
+  index: -1
+1tim
+  rotate: false
+  xy: 227, 29
+  size: 92, 132
+  orig: 100, 132
+  offset: 4, 0
+  index: -1
+1tim_bong
+  rotate: true
+  xy: 543, 219
+  size: 57, 97
+  orig: 65, 97
+  offset: 4, 0
+  index: -1
+1tim_tron
+  rotate: true
+  xy: 543, 163
+  size: 54, 91
+  orig: 62, 91
+  offset: 4, 0
+  index: -1
+flare 3 tim
+  rotate: false
+  xy: 321, 51
+  size: 102, 110
+  orig: 110, 110
+  offset: 4, 0
+  index: -1
+hat
+  rotate: true
+  xy: 2, 3
+  size: 14, 20
+  orig: 22, 20
+  offset: 4, 0
+  index: -1
+hat_tron
+  rotate: true
+  xy: 227, 2
+  size: 25, 33
+  orig: 33, 33
+  offset: 4, 0
+  index: -1
+khung
+  rotate: true
+  xy: 2, 159
+  size: 361, 193
+  orig: 369, 193
+  offset: 4, 0
+  index: -1
+khung_add
+  rotate: true
+  xy: 197, 163
+  size: 357, 181
+  orig: 365, 181
+  offset: 4, 0
+  index: -1
+o_add
+  rotate: false
+  xy: 290, 4
+  size: 16, 23
+  orig: 24, 23
+  offset: 4, 0
+  index: -1
+tia
+  rotate: false
+  xy: 543, 368
+  size: 60, 152
+  orig: 68, 152
+  offset: 4, 0
+  index: -1
+tieng_thai
+  rotate: false
+  xy: 2, 89
+  size: 223, 68
+  orig: 231, 68
+  offset: 4, 0
+  index: -1
+tieng_thai_add
+  rotate: false
+  xy: 2, 19
+  size: 223, 68
+  orig: 231, 68
+  offset: 4, 0
+  index: -1

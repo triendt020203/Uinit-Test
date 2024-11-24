@@ -1,0 +1,45 @@
+import { LangInterface, LanguageKey } from "./GameLanuage";
+
+export default class en_US implements LangInterface<LanguageKey> {
+    readonly PAYMENT_SUCCESS = 'Congratulations! Your account have been deposited %s chip. Thank you and enjoy playing games!';
+    readonly WATCH_VIDEO_SUCCESS = "Congratulations! You just earned %s chip";
+    readonly INV_POPUP_DESC = "You will be earned 1M chip for\neach new player who accepts the invitation";
+    readonly YOU_GOT_CHIP = "Congratulations! You just earned %s chip";
+    readonly MUSIC = "Music";
+    readonly SOUND = "Sound";
+    readonly GIFT_CODE = "Gift Code";
+    readonly LANGUAGE = "Language";
+    readonly ON = "on";
+    readonly OFF = "off";
+    readonly ADS_LEFT = "Ads left";
+    readonly ADS_NOT_AVAILABLE = "Ads are not available this moment. Try again later!";
+    readonly DAILY_ADS_REACHED = "Daily ads limit reached. Come back later for more!";
+    readonly BET = "Bet:";
+    readonly BET2 = "Bet: ";
+    readonly ENTER_ROOM_CODE = "Enter room code";
+    readonly LOADING_LOBBY_DATA = "Loading data...";
+    readonly YOU_NEED_AT_LEAST = "You need at least %s chip to play game";
+    readonly TUT_STEP_1 = "The player has the least points in your hand will be the\n<color=#f18215>WINNER</c>\nCards:  1, 2, 3, 4, 5, 6, 7, 8, 9, 10 are valued according to the\ncard numbers.\nCards J, Q K are worth 10 points";
+    readonly TUT_STEP_2 = "If the first 5 cards are a special combination, we win\nimmediately. Special combination as shown in the picture:\n<color=#bd5d07>Flush straight > Four of a kinds > Full house > Flush\n                                                  >Straight  > Three of a kinds</color>";
+    readonly TUT_STEP_3 = "We have 31 points! This is a high score, we should\nget one more card.\nPlease click button \"Draw\".";
+    readonly TUT_STEP_4 = "We get card 4. K seems highest rank \"10 points\".\nWe should discard K by click \"Discard\" button";
+    readonly TUT_STEP_5 = "Oh great! We also have 10. Click \"Follow\" button now\nto get 50K Coins from your opponent";
+    readonly TUT_STEP_6 = "Now we have 4 cards left, totaling 15 points.\nThe point value is still high. You should continue to Draw";
+    readonly TUT_STEP_7 = "Do you see the pair 4 ? we can discards them!\nPlease,  Click \"Discard\" button";
+    readonly TUT_STEP_8 = "We have a total point of 8. That's a low score.I think we\ncan win. Click \"Kaeng\" to show cards and compare point";
+    readonly TUT_STEP_9 = "So we have learned how to play. Let's play with other\nplayers now! Good luck";
+    readonly SEND_YOU_100K = "<color=#618cc0>sent you</c> <color=#fc8c07>100K</color> <color=#618cc0>chip</c>";
+    readonly MY_FRIENDS = "My Friends";
+    readonly GIFT = "Gift";
+    readonly NO_GIFT_TODAY = "No gifts from your friends today.\nLet's be proactive  send gift  and invite friends";
+    readonly ROOM_NUMBER = "Room number: ";
+    readonly CONNECTION_LOST = "You have lost connection to server.\nPlease check your internet connection,\ntrying to reconnect...";
+    readonly WAIT_TO_EXIT = "Register to leave the room successfully";
+    readonly WAIT_TO_EXIT_CANCEL = "Cancel registration to leave room";
+    readonly CHAT_GLOBAL = "Global";
+    readonly WRITE_A_MESSAGE = "Write a message";
+    readonly CAN_NOT_CHANGE_TABLE = "Can not change table while play game!";
+    readonly ROOM_WAS_NOT_FOUND = "Room was not found";
+    readonly ROOM_FULL = "Room is full!";
+    readonly UNLIMITED = "Unlimited";
+}

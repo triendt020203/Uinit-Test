@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Cocos Creator | Lucky9</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
+  
+  <!-- force screen orientation on some browser -->
+  <meta name="screen-orientation" content="landscape"/>
+  <meta name="x5-orientation" content="landscape">
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <style>html{-ms-touch-action:none}body,canvas,div{display:block;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}body{position:absolute;top:0;left:0;width:100%;height:100%;padding:0;border:0;margin:0;cursor:default;color:#000;background-color:#000;text-align:center;font-family:Helvetica,Verdana,Arial,sans-serif;display:flex;flex-direction:column;overflow:hidden}#Cocos2dGameContainer{position:absolute;margin:0;left:0;top:0;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:center;-webkit-box-pack:center}canvas{background-color:rgba(0,0,0,1)}a:link,a:visited{color:#666}a:active,a:hover{color:#666}p.header{font-size:small}p.footer{font-size:x-small}.progress-bar{position:absolute;left:27.5%;top:80%;height:3px;padding:2px;width:45%;border-radius:7px;box-shadow:0 1px 5px #000 inset,0 1px 0 #444}.progress-bar span{display:block;height:100%;border-radius:3px;transition:width .4s ease-in-out;background-color:#3dc5de}.stripes span{background-size:30px 30px;background-image:linear-gradient(135deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);animation:animate-stripes 1s linear infinite}@keyframes animate-stripes{0%{background-position:0 0}100%{background-position:60px 0}}</style>
+</head>
+<body>
+  <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>  
+  <script>    
+    window._CCSettings = {
+        platform: "fb-instant-games",
+        groupList: ["default"],
+        collisionMatrix: [
+            [true]
+        ],
+        hasResourcesBundle: true,
+        hasStartSceneBundle: false,
+        remoteBundles: [],
+        subpackages: [],
+        launchScene: "db://assets/scene/splash.fire",
+        orientation: "landscape",
+        jsList: ["assets/script/lib/sfs2x-api-1.7.18.js"]
+    };
+
+    window.CyberGlobals = {
+        startGameAsyncResolved: false,
+
+        initializeAsyncResolved: false,
+
+        getDataAsyncResolved: false,
+
+        progress: 10,
+
+        tutorialPlayed: false,
+
+        gameLocale: null,
+
+        gameConfig: {
+            globalChatUrl: null,
+			appId: 388497443242150,
+            isPreviewMode: true,
+			debugLoadingProgress: false
+        },
+
+        sfsConfig: {
+            host: "dev.gamezoka.com",
+            port: 8081,
+            useSSL: false,
+            zone: "Phikhaeng",
+            debug: false
+        },
+
+        signedPlayer: {
+            guserid: -1,
+            playerId: undefined,
+            signature: undefined
+        },
+		
+		isSignedPlayerResolved() {
+			if (this.signedPlayer.signature != undefined && this.signedPlayer.playerId != undefined && this.signedPlayer.guserid != -1)
+                return true;            
+			return false;
+		},
+
+        getLocale() {
+            return this.gameLocale;
+        }
+    }
+
+    function initializeGameAsync(languageEnabled) {
+        if (CyberGlobals.gameConfig.debugLoadingProgress)
+            console.log('FBInstant SDK script loaded', Date.now() - gameStartTime);
+        FBInstant.initializeAsync().then(function () {
+            if (CyberGlobals.gameConfig.debugLoadingProgress) {
+                console.log('FBInstant.initializeAsync resolved', Date.now() - gameStartTime);
+                window.getDataAsyncStartTime = Date.now();            
+            }
+            CyberGlobals.initializeAsyncResolved = true;
+            FBInstant.setLoadingProgress(CyberGlobals.progress);
+            getDataAsync();
+            getSignedPlayerInfoAsync();        
+            console.log(FBInstant.player.getPhoto());        
+        }).catch(function (error) {
+            console.log("initializeGameAsync exception", error);
+            setTimeout(function () {
+                initializeGameAsync(languageEnabled);
+            }, 100);
+        });
+    }
+
+    function updateLoadingProgress(progress) {
+        CyberGlobals.progress += progress;
+        if (CyberGlobals.initializeAsyncResolved)
+            FBInstant.setLoadingProgress(CyberGlobals.progress);
+    }
+
+    function getSignedPlayerInfoAsync() {
+        FBInstant.player.getSignedPlayerInfoAsync().then(function (result) {
+            CyberGlobals.signedPlayer.playerId = result.getPlayerID();
+            CyberGlobals.signedPlayer.signature = result.getSignature();
+            updateLoadingProgress(15);
+            if (CyberGlobals.gameConfig.debugLoadingProgress)
+                console.log('FBInstant.getSignedPlayerInfoAsync resolved', Date.now() - getDataAsyncStartTime);
+        }).catch(function (error) {
+            console.log("getSignedPlayerInfoAsync exception", error);
+            setTimeout(function () {
+                getSignedPlayerInfoAsync();
+            }, 500);
+        })
+    }
+
+    function getDataAsync() {
+        FBInstant.player
+            .getDataAsync(['gameLocale', 'guserid', 'tutorialPlayedV1'])
+            .then(function (data) {
+                if (data['tutorialPlayedV1'])
+                    CyberGlobals.tutorialPlayed = data['tutorialPlayedV1'];
+
+                if (data['guserid'])
+                    CyberGlobals.signedPlayer.guserid = parseInt(data['guserid']);
+                else
+                    CyberGlobals.signedPlayer.guserid = 0;
+
+                if (data['gameLocale'])
+                    CyberGlobals.gameLocale = data['gameLocale'];
+                else
+                    CyberGlobals.gameLocale = 'en_US';
+                    
+                CyberGlobals.getDataAsyncResolved = true;
+                updateLoadingProgress(15);
+                if (CyberGlobals.gameConfig.debugLoadingProgress)
+                    console.log('FBInstant.getDataAsync resolved', Date.now() - getDataAsyncStartTime);
+            }).catch(function (error) {
+                CyberGlobals.signedPlayer.guserid = 0;
+                CyberGlobals.tutorialPlayed = true;
+                CyberGlobals.gameLocale = "en_US";
+                CyberGlobals.getDataAsyncResolved = true;
+                console.log("getDataAsync", error);
+            });
+    }
+
+    function startGameAsync() {
+        if (CyberGlobals.initializeAsyncResolved) {
+            FBInstant.startGameAsync()
+                .then(() => {
+                    CyberGlobals.startGameAsyncResolved = true;
+                })
+                .catch((error) => {
+                    setTimeout(() => {
+                        startGameAsync();
+                    }, 500);
+                    console.log("startGameAsync", error);
+                });
+        } else {
+            setTimeout(() => {
+                startGameAsync();
+            }, 30);
+        }
+    }
+
+    function boot() {
+        if (CyberGlobals.gameConfig.debugLoadingProgress) {
+            window.cocosStartLoad = Date.now();
+            console.log('Cocos creator script loaded', cocosStartLoad - gameStartTime);
+        }        
+        var RESOURCES = cc.AssetManager.BuiltinBundleName.RESOURCES;
+        var INTERNAL = cc.AssetManager.BuiltinBundleName.INTERNAL;
+        var MAIN = cc.AssetManager.BuiltinBundleName.MAIN;
+        var settings = window._CCSettings;
+        settings.debug = true;
+        window._CCSettings = undefined;
+
+        // init engine
+        var canvas;
+
+        if (cc.sys.isBrowser)
+            canvas = document.getElementById('GameCanvas');
+
+        var onStart = function () {
+            if (CyberGlobals.gameConfig.debugLoadingProgress) {                
+                console.log('Cocos creator game run', Date.now() - cocosStartLoad);
+            }        
+            cc.view.resizeWithBrowserSize(true);
+            cc.view.enableRetina(true);
+
+            if (cc.sys.isMobile) {
+                if (settings.orientation === 'landscape') {
+                    cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+                } else if (settings.orientation === 'portrait') {
+                    cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+                }
+                // qq, wechat, baidu
+                cc.view.enableAutoFullScreen(
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU &&
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_WECHAT &&
+                    cc.sys.browserType !== cc.sys.BROWSER_TYPE_MOBILE_QQ
+                );
+            }
+
+            // Limit downloading max concurrent task to 2,
+            // more tasks simultaneously may cause performance draw back on some android system / brwosers.
+            // You can adjust the number based on your own test result, you have to set it before any loading process to take effect.            
+            cc.assetManager.downloader.maxConcurrency = 10;
+            //if (cc.sys.isBrowser && cc.sys.os === cc.sys.OS_ANDROID) {
+            // cc.assetManager.downloader.maxConcurrency = 2;
+            //}
+
+            var launchScene = settings.launchScene;
+
+            var bundle = cc.assetManager.bundles.find(function (b) {
+                return b.getSceneInfo(launchScene);
+            });
+
+            bundle.loadScene(launchScene,
+                cc.sys.isBrowser ? function (completedCount, totalCount) {
+                    var progress = Math.floor(100 * completedCount / totalCount);                    
+                    if (CyberGlobals.progress < progress) {
+                        if (CyberGlobals.initializeAsyncResolved)
+                            FBInstant.setLoadingProgress(progress);
+                    } else
+                        updateLoadingProgress(3);
+                    if (CyberGlobals.gameConfig.debugLoadingProgress)
+                        console.log("Startscene progress: " + progress);
+                } : null,
+                function (err, scene) {
+                    console.log('Success to load startscene');
+                    startGameAsync();
+                    cc.director.runSceneImmediate(scene);
+                }
+            );
+
+            // connect server parallel with scene loading 
+            CyberGame.initAsync().then(function(){
+                if (CyberGlobals.gameConfig.debugLoadingProgress)
+                   console.log("CyberGame.initAsync resolved");
+            });
+        };
+
+        var option = {
+            //width: width,
+            //height: height,
+            id: 'GameCanvas',
+            debugMode: settings.debug ? cc.debug.DebugMode.INFO : cc.debug.DebugMode.ERROR,
+            showFPS: settings.debug,
+            frameRate: 60,
+            groupList: settings.groupList,
+            collisionMatrix: settings.collisionMatrix,
+        };
+
+        cc.assetManager.init({
+            bundleVers: settings.bundleVers
+        });
+        var bundleRoot = [INTERNAL];
+        settings.hasResourcesBundle && bundleRoot.push(RESOURCES);
+
+        var count = 0;
+
+        function cb(err) {
+            if (err) return console.error(err.message, err.stack);
+            count++;            
+            if (count === bundleRoot.length + 1) {
+                cc.assetManager.loadBundle(MAIN, function (err) {                                      
+                    if (!err) cc.game.run(option, onStart);
+                    updateLoadingProgress(2);
+                    if (CyberGlobals.gameConfig.debugLoadingProgress)
+                        console.log("load bundle main");
+                });
+            }
+            updateLoadingProgress(2);
+            if (CyberGlobals.gameConfig.debugLoadingProgress)
+                console.log("load bundle root and plugin: " + count);
+        }
+
+        // load plugins
+        cc.assetManager.loadScript(settings.jsList.map(function (x) {
+            return 'src/' + x;
+        }), cb);
+
+        // load bundles
+        for (var i = 0; i < bundleRoot.length; i++) {
+            cc.assetManager.loadBundle(bundleRoot[i], cb);
+        }
+        updateLoadingProgress(10);
+    }    
+    if (CyberGlobals.gameConfig.debugLoadingProgress)
+        window.gameStartTime = Date.now();
+  </script>
+  <script src="mock.js" async onload="initializeGameAsync()"></script>
+  <script src="cocos2d-js-min.js" async onload="boot()" ></script>
+</body>
+</html>
